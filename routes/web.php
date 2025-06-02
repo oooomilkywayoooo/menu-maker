@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\MenuDayController;
+use App\Http\Controllers\MenuItemController;
 
+// Viewルーティング
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -29,3 +33,8 @@ Route::get('/menu_history', function () {
 Route::get('/show_menu_history', function () {
     return view('show_menu_history');
 })->name('show_menu_history');
+
+// コントローラルーティング
+Route::resource('recipes', RecipeController::class);
+Route::resource('menu-days', MenuDayController::class);
+Route::resource('menu-items', MenuItemController::class);
