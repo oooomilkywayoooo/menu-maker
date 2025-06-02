@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Recipe;
 use App\Models\Genre;
 
 class RecipeController extends Controller
@@ -30,7 +31,27 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'memo' => 'required',
+            'materials' => 'required|array|min:1',
+            'genre_id' => 'required|exists:genres,id',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        $imagePath = $request->file('image')
+            ? $request->file('image')->store('images', 'public')
+            : null;
+
+        Recipe::create([
+            'title' => $request->input('title'),
+            'memo' => $request->input('memo'),
+            'materials' => $request->input('materials'), // ← LaravelがJSON化してくれる
+            'genre_id' => $request->input('genre_id'),
+            'image_path' => $imagePath,
+        ]);
+
+        return redirect()->route('recipes.create')->with('success', 'レシピを登録しました');
     }
 
     /**

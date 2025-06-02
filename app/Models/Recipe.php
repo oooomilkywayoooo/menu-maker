@@ -16,4 +16,8 @@ class Recipe extends Model
     {
         return $this->hasMany(MenuItem::class);
     }
+
+    protected $casts = [
+        'materials' => 'array', // ← JSONとして扱う
+    ];
 }
