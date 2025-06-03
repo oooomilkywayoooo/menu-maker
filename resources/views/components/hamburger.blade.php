@@ -8,7 +8,7 @@
             class="z-0 fixed top-0 left-0 w-full text-center bg-[#FFE79F] font-bold
     translate-x-full transition ease-linear">
             <li class="p-2"><a href="{{ route('home') }}">ホーム</a></li>
-            <li class="p-2"><a href="{{ route('add_cooking') }}">料理登録</a></li>
+            <li class="p-2"><a href="{{ route('recipes.create') }}">料理登録</a></li>
             <li class="p-2"><a href="{{ route('one_week_menu') }}">献立</a></li>
             <li class="p-2"><a href="{{ route('shopping_list') }}">買い物リスト</a></li>
             <li class="p-2"><a href="{{ route('favorite') }}">お気に入り</a></li>

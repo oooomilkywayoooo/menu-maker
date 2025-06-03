@@ -76,15 +76,12 @@
                 <!-- ジャンル -->
                 <div class="grid grid-cols-12 gap-4 mt-2 md:mt-5">
                     <div class="col-start-3 md:col-start-2 col-span-8">
-                        <select id="genre"
+                        <select name="genre_id" id="genre"
                             class="bg-white border-2 border-[#eae4d9] text-gray-300 text-sm rounded-lg focus:ring-[#F9C9B4] focus:border-[#F9C9B4] block w-full p-2.5">
                             <option value="" selected>ジャンル</option>
-                            <option value="fish">魚料理</option>
-                            <option value="fried">揚げもの</option>
-                            <option value="bake">炒めもの</option>
-                            <option value="noodle">麺料理</option>
-                            <option value="don">丼もの</option>
-                            <option value="other">その他</option>
+                            @foreach ($genres as $genre)
+                                <option value="{{ $genre->id }}">{{ $genre->name }}</option>    
+                            @endforeach
                         </select>
                     </div>
                 </div>

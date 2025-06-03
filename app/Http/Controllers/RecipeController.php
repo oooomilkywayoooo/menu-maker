@@ -21,9 +21,9 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        // ジャンル一覧
+        // ジャンルを渡す
         $genres = Genre::all();
-        //
+        return view('add_cooking', compact('genres'));
     }
 
     /**
