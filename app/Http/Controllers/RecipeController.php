@@ -8,6 +8,16 @@ use App\Models\Genre;
 
 class RecipeController extends Controller
 {
+
+    /**
+     * ホーム画面の表示
+     */
+    public function home()
+    {
+        // ホーム画面
+        return view('home');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,23 +42,28 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'memo' => 'required',
-            'materials' => 'required|array|min:1',
+            'name' => 'required|string|max:255',
             'genre_id' => 'required|exists:genres,id',
-            'image' => 'nullable|image|max:2048',
+            'materials' => 'required|array',
+            'materials.*' => 'string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'memo' => 'nullable|string',
         ]);
 
-        $imagePath = $request->file('image')
-            ? $request->file('image')->store('images', 'public')
-            : null;
+        // 画像がある場合は保存してパスを取得
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
 
+        // 登録処理
         Recipe::create([
-            'title' => $request->input('title'),
-            'memo' => $request->input('memo'),
-            'materials' => $request->input('materials'), // ← LaravelがJSON化してくれる
+            'name' => $request->input('name'),
             'genre_id' => $request->input('genre_id'),
+            'materials' => json_encode($request->input('materials')), // JSONとして保存
             'image_path' => $imagePath,
+            'memo' => $request->input('memo'),
+            // 'favorite_flg' はDB側でデフォルトfalse設定なら省略OK
         ]);
 
         return redirect()->route('recipes.create')->with('success', 'レシピを登録しました');

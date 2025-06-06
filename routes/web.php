@@ -6,9 +6,11 @@ use App\Http\Controllers\MenuDayController;
 use App\Http\Controllers\MenuItemController;
 
 // Viewルーティング
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Route::get('/', function () {
+//     return view('home');
+// })->name('home');
+
+Route::get('/', [RecipeController::class, 'home'])->name('home');
 
 // Route::get('/add_cooking', function () {
 //     return view('add_cooking');

@@ -20,4 +20,13 @@ class Recipe extends Model
     protected $casts = [
         'materials' => 'array', // ← JSONとして扱う
     ];
+
+    protected $fillable = [
+        'name',
+        'genre_id',
+        'materials',
+        'image_path',
+        'memo',
+        'favorite_flg',
+    ];
 }
