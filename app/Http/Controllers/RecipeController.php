@@ -19,11 +19,24 @@ class RecipeController extends Controller
     }
 
     /**
+     * お気に入り画面の表示
+     */
+    public function favorite()
+    {
+        // favorite_flgがtrueのレシピ取得
+        $recipes = Recipe::where('favorite_flg', true)->get();
+        // 取得したレシピを favorite.blade.php に渡す
+        return view('favorite', compact('recipes'));
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // 料理一覧表示
+        $recipes = Recipe::all();
+        return view('recipes_index', compact('recipes'));
     }
 
     /**
@@ -67,6 +80,19 @@ class RecipeController extends Controller
         ]);
 
         return redirect()->route('recipes.create')->with('success', 'レシピを登録しました');
+    }
+
+    /**
+     * お気に入りフラグチェンジ
+     */
+    public function toggleFavorite(Recipe $recipe)
+    {
+        $recipe->favorite_flg = !$recipe->favorite_flg;
+        $recipe->save();
+
+        return response()->json([
+            'favorite' => $recipe->favorite_flg
+        ]);
     }
 
     /**
