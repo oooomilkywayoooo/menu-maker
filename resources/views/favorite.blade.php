@@ -34,7 +34,7 @@
 
             <!-- お気に入り一覧 -->
             @foreach ($recipes as $recipe)
-                <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
+                <div class="grid grid-cols-12 gap-4 mt-5 flex items-center">
                     <div class="flex col-start-2 col-span-10 md:col-span-9 md:col-start-1">
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-0 border-[#E7F2F7] md:border-gray-300 rounded-s-full">

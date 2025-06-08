@@ -40,8 +40,16 @@
                             <li>{{ $material }}</li>
                         @endforeach
                     </ul>
-                    <p class="text-xl p-3">メモ</p>
-                    <p class="pl-5">{{ $recipe->memo }}</p>
+                    @if ($recipe->memo)
+                        <p class="text-xl p-3">メモ</p>
+                        <p class="pl-5">{{ $recipe->memo }}</p>
+                    @endif
+                    @if ($recipe->url)
+                        <a href="{{ $recipe->url }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-base p-3 hover:text-[#42A5F5]">
+                            <i class="fa-solid fa-link"></i>
+                            <p>参考サイトを開く</p>
+                        </a>
+                    @endif
                 </div>
             </div>
             <div class="hidden md:grid grid-cols-5 gap-4 mt-5">
@@ -54,14 +62,14 @@
                 </div>
             </div>
             <!-- 確定ボタン スマホ用 -->
-                <div class="md:hidden grid grid-cols-12 gap-4">
-                    <div class="col-span-8 col-start-3 flex justify-center">
-                        <button type="button"
-                            class="text-white bg-[#F9C7C0] focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-2xl px-20 py-4 my-4">
-                            編集
-                        </button>
-                    </div>
+            <div class="md:hidden grid grid-cols-12 gap-4">
+                <div class="col-span-8 col-start-3 flex justify-center">
+                    <button type="button"
+                        class="text-white bg-[#F9C7C0] focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-2xl px-20 py-4 my-4">
+                        編集
+                    </button>
                 </div>
+            </div>
         </main>
     </div>
 </body>
