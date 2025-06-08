@@ -61,6 +61,7 @@ class RecipeController extends Controller
             'materials.*' => 'string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'memo' => 'nullable|string',
+            'url' => 'nullable|url',
         ]);
 
         // 画像がある場合は保存してパスを取得
@@ -78,6 +79,7 @@ class RecipeController extends Controller
             'materials' => json_encode($request->input('materials')), // JSONとして保存
             'image_path' => $imagePath,
             'memo' => $request->input('memo'),
+            'url' => $request->input('url'),
             // 'favorite_flg' はDB側でデフォルトfalse設定なら省略OK
         ]);
 

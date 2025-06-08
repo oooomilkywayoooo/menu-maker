@@ -119,7 +119,15 @@
                         <textarea name="memo" id="memo" rows="4"
                             class="block p-2.5 w-full text-sm text-black bg-white rounded-lg border-2 
                                 border-[#eae4d9] focus:ring-[#F9C9B4] focus:border-[#F9C9B4] placeholder-gray-300"
-                            placeholder="作り方メモまたは参考サイトURL"></textarea>
+                            placeholder="作り方メモ"></textarea>
+                    </div>
+                </div>
+
+                <!-- 参考URL -->
+                <div class="grid grid-cols-12 gap-4 mt-2 md:mt-5">
+                    <div class="col-start-3 md:col-start-2 col-span-8">
+                        <input type="url" name="url" id="url" placeholder="参考サイトURL"
+                            class="w-full text-sm border-2 border-[#eae4d9] rounded-lg px-3 py-2 bg-white placeholder-gray-300 focus:ring-[#F9C9B4] focus:border-[#F9C9B4]">
                     </div>
                 </div>
 

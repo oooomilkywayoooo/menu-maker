@@ -27,6 +27,7 @@ class Recipe extends Model
         'materials',
         'image_path',
         'memo',
+        'url',
         'favorite_flg',
     ];
 }
