@@ -20,13 +20,26 @@
 
         <!-- メイン -->
         <main class="col-span-12 md:col-span-9 h-dvh">
+            {{-- アラートメッセージ --}}
+            @if (session('success'))
+                <div class="grid grid-cols-12 gap-4 mt-20">
+                    <div class="col-span-12 md:col-span-3">
+                        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-[#caf3e1]" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mt-10">
                 <div class="md:col-span-2 md:h-[400px]">
                     <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="料理画像">
                 </div>
                 {{-- 料理詳細 --}}
                 <div class="md:col-span-2 bg-[#F5F7FA] shadow-md p-4 rounded-md">
-                    <h1 class="p-2.5 font-bold text-3xl">{{ $recipe->name }}</h1>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-utensils text-2xl"></i>
+                        <h1 class="p-2.5 font-bold text-3xl">{{ $recipe->name }}</h1>
+                    </div>
                     <span class="flex ml-3">
                         {{-- ジャンルごとのジャンル画像 --}}
                         <div class="w-[26px] aspect-[1/1]">
@@ -42,10 +55,11 @@
                     </ul>
                     @if ($recipe->memo)
                         <p class="text-xl p-3">メモ</p>
-                        <p class="pl-5">{{ $recipe->memo }}</p>
+                        <p class="pl-5">{!! nl2br(e($recipe->memo)) !!}</p>
                     @endif
                     @if ($recipe->url)
-                        <a href="{{ $recipe->url }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-base p-3 hover:text-[#42A5F5]">
+                        <a href="{{ $recipe->url }}" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center text-base p-3 hover:text-[#42A5F5]">
                             <i class="fa-solid fa-link"></i>
                             <p>参考サイトを開く</p>
                         </a>
@@ -55,19 +69,19 @@
             <div class="hidden md:grid grid-cols-5 gap-4 mt-5">
                 <div class="col-start-4 col-span-1 text-end">
                     <!-- 編集ボタン PC用 -->
-                    <button type="button"
+                    <a href="{{ route('recipes.edit', $recipe->id) }}"
                         class="text-white bg-[#FDC3AA] hover:bg-[#f79f79] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2">
                         編集
-                    </button>
+                    </a>
                 </div>
             </div>
             <!-- 確定ボタン スマホ用 -->
             <div class="md:hidden grid grid-cols-12 gap-4">
                 <div class="col-span-8 col-start-3 flex justify-center">
-                    <button type="button"
+                    <a href="{{ route('recipes.edit', $recipe->id) }}"
                         class="text-white bg-[#F9C7C0] focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-2xl px-20 py-4 my-4">
                         編集
-                    </button>
+                    </a>
                 </div>
             </div>
         </main>

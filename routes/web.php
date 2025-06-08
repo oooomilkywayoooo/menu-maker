@@ -13,9 +13,9 @@ Route::get('/shopping_list', function () {
     return view('shopping_list');
 })->name('shopping_list');
 
-Route::get('/show', function () {
-    return view('recipe_show');
-})->name('recipe_show');
+// Route::get('/show', function () {
+//     return view('recipe_show');
+// })->name('recipe_show');
 
 Route::get('/menu_history', function () {
     return view('menu_history');

@@ -28,35 +28,38 @@ select.addEventListener('change', function () {
 });
 
 // 材料入力テキストボックスの操作
-const addBtn = document.getElementById('add_material');
-const container1 = document.getElementById('material_container');
+document.addEventListener('DOMContentLoaded', function () {
+  const container1 = document.getElementById('material_container');
 
-addBtn.addEventListener('click', () => {
-  // 新しい入力行を作成
-  const container2 = document.createElement('div');
-  container2.className = 'container grid grid-cols-12 gap-4 mt-2 md:mt-5';
+  // 動的に追加されたボタンにも対応するように委任イベント
+  container1.addEventListener('click', function (event) {
+    // ＋ボタン押下時
+    if (event.target.closest('#add_material')) {
+      const container2 = document.createElement('div');
+      container2.className = 'container grid grid-cols-12 gap-4 mt-2 md:mt-5';
 
-  // 新しい入力行を作成
-  const container3 = document.createElement('div');
-  container3.className = 'col-start-3 md:col-start-2 col-span-8 flex items-center';
+      const container3 = document.createElement('div');
+      container3.className = 'col-start-3 md:col-start-2 col-span-8 flex items-center';
 
-  container3.innerHTML = `
-      <input type="text" name="materials[]" placeholder="材料"
-        class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white placeholder-gray-300 focus:ring-[#F9C9B4] focus:border-[#F9C9B4]">
+      container3.innerHTML = `
+        <input type="text" name="materials[]" placeholder="材料"
+          class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white placeholder-gray-300 focus:ring-[#F9C9B4] focus:border-[#F9C9B4]">
         <button type="button" class="delete_material">
           <i class="fa-solid fa-circle-xmark fa-2x ps-2" style="color:#f26f37;"></i>
         </button>
-    `;
-  container2.appendChild(container3);
-  container1.appendChild(container2);
-});
+      `;
 
-container1.addEventListener('click', function (event) {
-  if (event.target.closest('.delete_material')) {
-    const targetBtn = event.target.closest('.delete_material');
-    const containerToRemove = targetBtn.closest('.container');
-    if (containerToRemove) {
-      containerToRemove.remove();
+      container2.appendChild(container3);
+      container1.appendChild(container2);
     }
-  }
+
+    // ×ボタン押下時
+    if (event.target.closest('.delete_material')) {
+      const targetBtn = event.target.closest('.delete_material');
+      const containerToRemove = targetBtn.closest('.container');
+      if (containerToRemove) {
+        containerToRemove.remove();
+      }
+    }
+  });
 });

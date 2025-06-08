@@ -30,7 +30,7 @@ class RecipeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * 料理一覧を表示
      */
     public function index()
     {
@@ -40,7 +40,7 @@ class RecipeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 登録画面を表示
      */
     public function create()
     {
@@ -50,7 +50,7 @@ class RecipeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 登録処理
      */
     public function store(Request $request)
     {
@@ -109,19 +109,51 @@ class RecipeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 料理編集画面の表示
      */
     public function edit(string $id)
     {
-        //
+        $recipe = Recipe::findOrFail($id);
+        $genres = Genre::all();
+        return view('edit_cooking', compact('recipe'), compact('genres'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * 更新処理
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'genre_id' => 'required|exists:genres,id',
+            'materials' => 'required|array',
+            'materials.*' => 'string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'memo' => 'nullable|string',
+            'url' => 'nullable|url',
+        ]);
+
+        $recipe = Recipe::findOrFail($id);
+
+        // 画像がアップロードされた場合のみ保存
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public'); // ← 登録に合わせて修正
+        } else {
+            $imagePath = $request->input('existing_image') ?? 'images/no_image.jpg';
+        }
+
+        // 更新処理
+        $recipe->update([
+            'name' => $request->input('name'),
+            'genre_id' => $request->input('genre_id'),
+            'materials' => json_encode($request->input('materials')),
+            'image_path' => $imagePath,
+            'memo' => $request->input('memo'),
+            'url' => $request->input('url'),
+        ]);
+
+        return redirect()->route('recipes.show', $recipe->id)->with('success', 'レシピを更新しました！');
     }
 
     /**
