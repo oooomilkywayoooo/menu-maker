@@ -67,6 +67,8 @@ class RecipeController extends Controller
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = 'images/no_image.jpg';
         }
 
         // 登録処理
@@ -96,11 +98,12 @@ class RecipeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 料理詳細画面
      */
     public function show(string $id)
     {
-        //
+        $recipe = Recipe::with('genre')->findOrFail($id);
+        return view('recipe_show', compact('recipe'));
     }
 
     /**

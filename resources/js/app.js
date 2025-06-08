@@ -41,7 +41,7 @@ addBtn.addEventListener('click', () => {
   container3.className = 'col-start-3 md:col-start-2 col-span-8 flex items-center';
 
   container3.innerHTML = `
-      <input type="text" name="material[]" placeholder="材料"
+      <input type="text" name="materials[]" placeholder="材料"
         class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white placeholder-gray-300 focus:ring-[#F9C9B4] focus:border-[#F9C9B4]">
         <button type="button" class="delete_material">
           <i class="fa-solid fa-circle-xmark fa-2x ps-2" style="color:#f26f37;"></i>

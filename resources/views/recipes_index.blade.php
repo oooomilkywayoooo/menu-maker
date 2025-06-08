@@ -39,53 +39,14 @@
                                     <i class="fa-regular fa-star fa-lg pr-2"></i>
                                 @endif
                             </button>
-                            @switch($recipe->genre_id)
-                                @case(1)
-                                    <div class="w-[26px] aspect-[1/1]">
-                                        <img class="w-full h-full object-cover"
-                                            src="{{ asset('images/junre-icon/genre_fish.png') }}" alt="魚料理">
-                                    </div>
-                                @break
-
-                                @case(2)
-                                    <div class="w-[26px] aspect-[1/1]">
-                                        <img class="w-full h-full object-cover"
-                                            src="{{ asset('images/junre-icon/genre_fried.png') }}" alt="揚げ物">
-                                    </div>
-                                @break
-
-                                @case(3)
-                                    <div class="w-[26px] aspect-[1/1]">
-                                        <img class="w-full h-full object-cover"
-                                            src="{{ asset('images/junre-icon/genre_bake.png') }}" alt="炒め物">
-                                    </div>
-                                @break
-
-                                @case(4)
-                                    <div class="w-[26px] aspect-[1/1]">
-                                        <img class="w-full h-full object-cover"
-                                            src="{{ asset('images/junre-icon/genre_noodles.png') }}" alt="麺料理">
-                                    </div>
-                                @break
-
-                                @case(5)
-                                    <div class="w-[26px] aspect-[1/1]">
-                                        <img class="w-full h-full object-cover"
-                                            src="{{ asset('images/junre-icon/genre_don.png') }}" alt="丼もの">
-                                    </div>
-                                @break
-
-                                @case(6)
-                                    <div class="w-[26px] aspect-[1/1]">
-                                        <img class="w-full h-full object-cover"
-                                            src="{{ asset('images/junre-icon/genre_other.png') }}" alt="その他">
-                                    </div>
-                                @break
-                            @endswitch
+                            <!-- ジャンルIDごとのジャンル画像 -->
+                            <div class="w-[26px] aspect-[1/1]">
+                                @include('components.genre_switch')
+                            </div>
                         </span>
                         <div
-                            class="rounded-none rounded-e-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5">
-                            {{ $recipe->name }}
+                            class="rounded-none rounded-e-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5 pl-10">
+                            <a class="hover:text-[#42A5F5]" href="{{ route('recipes.show', $recipe->id) }}">{{ $recipe->name }}</a>
                         </div>
                     </div>
                 </div>
@@ -121,6 +82,7 @@
                 });
             });
         </script>
+    </div>
 </body>
 
 </html>

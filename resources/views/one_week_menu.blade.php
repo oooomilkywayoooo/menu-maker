@@ -255,7 +255,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- 生成ボタン PC用 -->
+                <!-- 確定ボタン PC用 -->
                 <div class="hidden md:grid grid-cols-12 gap-4">
                     <div class="col-span-6 col-start-6 flex justify-end">
                         <button type="button"
@@ -264,7 +264,7 @@
                         </button>
                     </div>
                 </div>
-                <!-- 生成ボタン スマホ用 -->
+                <!-- 確定ボタン スマホ用 -->
                 <div class="md:hidden grid grid-cols-12 gap-4">
                     <div class="col-span-8 col-start-3 flex justify-center">
                         <button type="button"
