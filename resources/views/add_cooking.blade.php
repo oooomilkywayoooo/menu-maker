@@ -69,11 +69,11 @@
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                     <i
                                         class="fa-solid fa-circle-plus fa-2x ps-2 text-[#F9C9B4] hover:text-[#f79f79]"></i>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                    <p id="filename_display_mobile" class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                             class="font-semibold">料理画像</p>
                                 </div>
                                 <input id="dropzone-file" type="file" name="image" accept="image/*"
-                                    class="hidden" />
+                                    class="hidden" onchange="document.getElementById('filename_display_mobile').textContent = this.files[0]?.name || ''">
                             </label>
                         </div>
                     </div>

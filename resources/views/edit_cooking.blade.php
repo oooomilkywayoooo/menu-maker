@@ -31,7 +31,7 @@
                 @csrf
                 @method('PUT')  {{-- これが必要！ --}}
                 @if ($recipe->image_path)
-                <div class="grid grid-cols-12 gap-4 mt-7 md:mt-10">
+                <div id="existing_image" class="grid grid-cols-12 gap-4 mt-7 md:mt-10">
                     <div class="mt-2 col-start-3 col-span-8 md:col-start-2 md:col-span-3">
                         <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="現在の画像"
                             class="w-48 rounded">
@@ -68,11 +68,12 @@
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                     <i
                                         class="fa-solid fa-circle-plus fa-2x ps-2 text-[#F9C9B4] hover:text-[#f79f79]"></i>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                    <p id="filename_display_mobile" class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                             class="font-semibold">料理画像</p>
                                 </div>
                                 <input id="dropzone-file" type="file" name="image" accept="image/*"
-                                    class="hidden" />
+                                    class="hidden" onchange="document.getElementById('filename_display_mobile').textContent = this.files[0]?.name || '';
+                                    document.getElementById('existing_image')?.classList.add('hidden');">
                             </label>
                         </div>
                     </div>
