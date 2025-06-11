@@ -46,11 +46,19 @@
                         </span>
                         <div
                             class="rounded-none rounded-e-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5 pl-10">
-                            <a class="hover:text-[#42A5F5]" href="{{ route('recipes.show', $recipe->id) }}">{{ $recipe->name }}</a>
+                            <a class="hover:text-[#42A5F5]"
+                                href="{{ route('recipes.show', $recipe->id) }}">{{ $recipe->name }}</a>
                         </div>
                     </div>
                 </div>
             @endforeach
+
+            {{-- ページネーション --}}
+            <div class="md:grid grid-cols-8 mt-10">
+                <div class="col-start-1 col-span-6 text-center">
+                    {{ $recipes->links('components.pagination') }}
+                </div>
+            </div>
         </main>
 
         <script>

@@ -24,7 +24,7 @@ class RecipeController extends Controller
     public function favorite()
     {
         // favorite_flgがtrueのレシピ取得
-        $recipes = Recipe::where('favorite_flg', true)->get();
+        $recipes = Recipe::where('favorite_flg', true)->paginate(10);
         // 取得したレシピを favorite.blade.php に渡す
         return view('favorite', compact('recipes'));
     }
@@ -35,7 +35,7 @@ class RecipeController extends Controller
     public function index()
     {
         // 料理一覧表示
-        $recipes = Recipe::all();
+        $recipes = Recipe::paginate(10); // 1ページあたり10件
         return view('recipes_index', compact('recipes'));
     }
 

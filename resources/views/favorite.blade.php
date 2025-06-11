@@ -20,11 +20,12 @@
 
         <!-- メイン -->
         <main class="col-span-12 md:col-span-9 h-dvh">
-            <div class="md:grid grid-cols-8 text-center">
+            <div class="md:grid grid-cols-8">
                 <div class="col-start-1 col-span-6 text-center">
                     <h1 class="mt-[86px] md:mt-6 text-3xl md:text-5xl font-black">お気に入り</h1>
                     <div class="flex items-end justify-end">
-                        <a href="{{ route('recipes.index') }}" class="text-[#5C4033] hover:text-[#42A5F5] mr-10 mt-2 md:mr-5 md:mt-0">
+                        <a href="{{ route('recipes.index') }}"
+                            class="text-[#5C4033] hover:text-[#42A5F5] mr-10 mt-2 md:mr-5 md:mt-0">
                             <i class="fa-solid fa-utensils pr-2"></i>
                             料理一覧
                         </a>
@@ -52,11 +53,19 @@
                         </span>
                         <div
                             class="rounded-none rounded-e-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5 pl-10">
-                            <a class="hover:text-[#42A5F5]" href="{{ route('recipes.show', $recipe->id) }}">{{ $recipe->name }}</a>
+                            <a class="hover:text-[#42A5F5]"
+                                href="{{ route('recipes.show', $recipe->id) }}">{{ $recipe->name }}</a>
                         </div>
                     </div>
                 </div>
             @endforeach
+
+            {{-- ページネーション --}}
+            <div class="md:grid grid-cols-8 mt-10">
+                <div class="col-start-1 col-span-6 text-center">
+                    {{ $recipes->links('components.pagination') }}
+                </div>
+            </div>
         </main>
         <script>
             // お気に入り切り替え
