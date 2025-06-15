@@ -29,7 +29,7 @@
             <!-- 料理一覧 -->
             @foreach ($recipes as $recipe)
                 <div class="grid grid-cols-12 gap-4 mt-5 flex items-center">
-                    <div class="flex col-start-2 col-span-10 md:col-span-9 md:col-start-1">
+                    <div class="flex col-start-2 col-span-10 md:col-span-9 md:col-start-1 @if ($loop->last) mb-10 @endif">
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-0 border-[#E7F2F7] md:border-gray-300 rounded-s-full">
                             <button class="star-btn" type="button" data-recipe-id="{{ $recipe->id }}">
@@ -54,8 +54,8 @@
             @endforeach
 
             {{-- ページネーション --}}
-            <div class="md:grid grid-cols-8 mt-10">
-                <div class="col-start-1 col-span-6 text-center">
+            <div class="md:grid grid-cols-8">
+                <div class="col-start-1 col-span-6 text-center mb-10">
                     {{ $recipes->links('components.pagination') }}
                 </div>
             </div>

@@ -7,13 +7,13 @@
                 <li>
                     <span
                         class="flex items-center justify-center px-3 h-8 text-gray-300 border border-e-0 border-gray-300 rounded-s-lg">
-                        <<< /span>
+                        <<</span>
                 </li>
             @else
                 <li>
                     <a href="{{ $paginator->previousPageUrl() }}"
                         class="flex items-center justify-center px-3 h-8 text-gray-500 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
-                        <<< /a>
+                        <<</a>
                 </li>
             @endif
 
