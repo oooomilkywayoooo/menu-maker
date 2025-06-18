@@ -26,17 +26,6 @@
                 </div>
             </div>
 
-            {{-- アラートメッセージ --}}
-            @if (session('success'))
-                <div class="grid grid-cols-12 gap-4 mt-5">
-                    <div class="col-start-3 col-span-6 md:col-start-2 md:col-span-3">
-                        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-[#caf3e1]" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    </div>
-                </div>
-            @endif
-
             <!-- 登録フォーム -->
             <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf

@@ -73,7 +73,7 @@ class RecipeController extends Controller
         }
 
         // 登録処理
-        Recipe::create([
+        $recipe = Recipe::create([
             'name' => $request->input('name'),
             'genre_id' => $request->input('genre_id'),
             'materials' => json_encode($request->input('materials')), // JSONとして保存
@@ -83,7 +83,8 @@ class RecipeController extends Controller
             // 'favorite_flg' はDB側でデフォルトfalse設定なら省略OK
         ]);
 
-        return redirect()->route('recipes.create')->with('success', 'レシピを登録しました');
+        return redirect()->route('recipes.show', ['recipe' => $recipe->id])
+                    ->with('success', 'レシピを登録しました');
     }
 
     /**
