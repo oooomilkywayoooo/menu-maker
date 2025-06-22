@@ -84,7 +84,7 @@ class RecipeController extends Controller
         ]);
 
         return redirect()->route('recipes.show', ['recipe' => $recipe->id])
-                    ->with('success', 'レシピを登録しました');
+            ->with('success', 'レシピを登録しました');
     }
 
     /**
@@ -163,5 +163,24 @@ class RecipeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * 献立生成画面でのレシピ補完機能
+     */
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        if (!$keyword) {
+            return response()->json([]);
+        }
+
+        $recipes = Recipe::where('name', 'like', "%{$keyword}%")
+            ->orWhere('materials', 'like', "%{$keyword}%")
+            ->limit(5) // 候補数を制限
+            ->get(['id', 'name']);
+
+        return response()->json($recipes);
     }
 }

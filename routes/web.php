@@ -35,3 +35,5 @@ Route::post('/recipes/{recipe}/toggle-favorite', [RecipeController::class, 'togg
 Route::resource('menu-days', MenuDayController::class);
 // 献立コントローラ
 Route::resource('menu-items', MenuItemController::class);
+// 献立生成画面でキーワードでレシピ候補を表示する
+Route::get('/search-recipes', [RecipeController::class, 'search'])->name('recipes.search');

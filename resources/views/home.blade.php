@@ -27,146 +27,44 @@
             </div>
 
             <!-- 献立フォーム -->
+            {{-- 曜日の連想配列宣言 --}}
+            @php
+                $days = [
+                    'mon' => ['label' => '月', 'icon' => 'genre_fish.png'],
+                    'tue' => ['label' => '火', 'icon' => 'genre_fried.png'],
+                    'wed' => ['label' => '水', 'icon' => 'genre_bake.png'],
+                    'thu' => ['label' => '木', 'icon' => 'genre_noodles.png'],
+                    'fri' => ['label' => '金', 'icon' => 'genre_don.png'],
+                    'sat' => ['label' => '土', 'icon' => 'genre_other.png'],
+                    'sun' => ['label' => '日', 'icon' => 'genre_other.png'],
+                ];
+            @endphp
             <form action="">
-                <div class="grid grid-cols-12 gap-4 mt-5 md:mt-10 flex items-center">
-                    <!-- 月曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">月</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_fish.png')}}"
-                                alt="魚料理">
+                @foreach ($days as $dayKey => $dayData)
+                    <div class="grid grid-cols-12 gap-4 mt-5 md:mt-10 flex items-center">
+                        <!-- 曜日 -->
+                        <div class="col-start-2 col-span-1 md:col-start-1">
+                            <p class="text-xl md:text-3xl">{{ $dayData['label'] }}</p>
+                        </div>
+                        <!-- ジャンルアイコン -->
+                        <div class="col-span-1">
+                            <div class="w-[26px] md:w-[36px] aspect-[1/1]">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/' . $dayData['icon']) }}" alt="ジャンル">
+                            </div>
+                        </div>
+                        <!-- テキストエリア -->
+                        <div class="col-span-8 md:col-span-9 relative">
+                            <input type="text" name="{{ $dayKey }}" id="{{ $dayKey }}-create"
+                                class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
+                                placeholder="食べたい料理を入力" required />
+                            <ul id="{{ $dayKey }}-suggestions"
+                                class="absolute z-10 bg-white border border-gray-300 w-full mt-1 rounded shadow hidden text-sm">
+                            </ul>
                         </div>
                     </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="mon-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
+                @endforeach
 
-                <div class="grid grid-cols-12 gap-4 mt-6 flex items-center">
-                    <!-- 火曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">火</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_fried.png')}}"
-                                alt="揚げ物">
-                        </div>
-                    </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="tue-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 mt-6 flex items-center">
-                    <!-- 水曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">水</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_bake.png')}}"
-                                alt="焼き物">
-                        </div>
-                    </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="wed-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 mt-6 flex items-center">
-                    <!-- 木曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">木</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_noodles.png')}}"
-                                alt="麺料理">
-                        </div>
-                    </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="thu-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 mt-6 flex items-center">
-                    <!-- 金曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">金</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_don.png')}}"
-                                alt="丼もの">
-                        </div>
-                    </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="fri-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 mt-6 flex items-center">
-                    <!-- 土曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">土</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_other.png')}}"
-                                alt="リクエスト">
-                        </div>
-                    </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="ast-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-12 gap-4 mt-6 flex items-center">
-                    <!-- 日曜日 -->
-                    <div class="col-start-2 col-span-1 md:col-start-1">
-                        <p class="text-xl md:text-3xl">日</p>
-                    </div>
-                    <!-- ジャンルアイコン -->
-                    <div class="col-span-1">
-                        <div class="w-[26px] md:w-[36px] aspect-[1/1]">
-                            <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_other.png')}}"
-                                alt="リクエスト">
-                        </div>
-                    </div>
-                    <!-- テキストエリア -->
-                    <div class="col-span-8 md:col-span-9">
-                        <input type="text" id="sun-create"
-                            class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                            placeholder="食べたい料理を入力" required />
-                    </div>
-                </div>
                 <!-- 生成ボタン PC用 -->
                 <div class="hidden md:grid grid-cols-12 gap-4 mt-3">
                     <div class="col-span-6 col-start-6 flex justify-end">
@@ -188,6 +86,69 @@
             </form>
         </main>
     </div>
+
+    {{-- ▼ スクリプト --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+            days.forEach(day => {
+                const input = document.getElementById(`${day}-create`);
+                const list = document.getElementById(`${day}-suggestions`);
+
+                if (!input || !list) return; // 念のため null チェック
+
+                let timer;
+
+                input.addEventListener('input', () => {
+                    const keyword = input.value.trim();
+                    clearTimeout(timer);
+
+                    timer = setTimeout(() => {
+                        if (keyword === '') {
+                            list.innerHTML = '';
+                            list.classList.add('hidden');
+                            return;
+                        }
+
+                        fetch(`/search-recipes?keyword=${encodeURIComponent(keyword)}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.length === 0) {
+                                    list.innerHTML =
+                                        '<li class="p-2 text-gray-500">候補なし</li>';
+                                } else {
+                                    list.innerHTML = data.map(recipe =>
+                                        `<li class="p-2 hover:bg-blue-100 cursor-pointer" data-name="${recipe.name}">
+                                        ${recipe.name}
+                                    </li>`
+                                    ).join('');
+                                }
+                                list.classList.remove('hidden');
+
+                                list.querySelectorAll('li').forEach(li => {
+                                    li.addEventListener('click', () => {
+                                        input.value = li.dataset.name;
+                                        list.innerHTML = '';
+                                        list.classList.add('hidden');
+                                    });
+                                });
+                            });
+                    }, 300);
+                });
+
+                input.addEventListener('blur', () => {
+                    setTimeout(() => list.classList.add('hidden'), 100);
+                });
+
+                input.addEventListener('focus', () => {
+                    if (list.innerHTML.trim() !== '') {
+                        list.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
