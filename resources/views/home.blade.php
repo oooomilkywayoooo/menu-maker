@@ -39,7 +39,8 @@
                     'sun' => ['label' => '日', 'icon' => 'genre_other.png'],
                 ];
             @endphp
-            <form action="">
+            <form action="{{ route('menu-items.menusCreate') }}" method="POST">
+                @csrf
                 @foreach ($days as $dayKey => $dayData)
                     <div class="grid grid-cols-12 gap-4 mt-5 md:mt-10 flex items-center">
                         <!-- 曜日 -->
@@ -57,7 +58,7 @@
                         <div class="col-span-8 md:col-span-9 relative">
                             <input type="text" name="{{ $dayKey }}" id="{{ $dayKey }}-create"
                                 class="border border-gray-300 text-xs md:text-lg rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full p-2.5 placeholder-gray-300"
-                                placeholder="食べたい料理を入力" required />
+                                placeholder="食べたい料理を入力" />
                             <ul id="{{ $dayKey }}-suggestions"
                                 class="absolute z-10 bg-white border border-gray-300 w-full mt-1 rounded shadow hidden text-sm">
                             </ul>
@@ -68,7 +69,7 @@
                 <!-- 生成ボタン PC用 -->
                 <div class="hidden md:grid grid-cols-12 gap-4 mt-3">
                     <div class="col-span-6 col-start-6 flex justify-end">
-                        <button type="button"
+                        <button type="submit"
                             class="text-white bg-[#FDC3AA] hover:bg-[#f79f79] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-2xl px-5 py-2.5 me-2 mb-2">
                             献立を生成
                         </button>
@@ -77,7 +78,7 @@
                 <!-- 生成ボタン スマホ用 -->
                 <div class="md:hidden grid grid-cols-12 gap-4">
                     <div class="col-span-8 col-start-3 flex justify-center">
-                        <button type="button"
+                        <button type="submit"
                             class="text-white bg-[#F9C7C0] focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-2xl px-10 py-4 my-4">
                             献立を生成
                         </button>

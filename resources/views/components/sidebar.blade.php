@@ -13,7 +13,7 @@
             </a>
         </div>
         <div class="m-3">
-            <a href="{{ route('one_week_menu') }}"
+            <a href="{{ route('menu-items.index') }}"
                 class="w-20 h-20  bg-[#E7DBDA] text-white font-semibold rounded-full hover:bg-[#e8c7c5] flex items-center justify-center">
                 <img class="w-14 h-14" src="{{ asset('images/sidebar-icon/sidebar_dinner.png') }}" alt="献立ボタン">
             </a>

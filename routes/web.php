@@ -5,9 +5,9 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\MenuDayController;
 use App\Http\Controllers\MenuItemController;
 
-Route::get('/one_week_menu', function () {
-    return view('one_week_menu');
-})->name('one_week_menu');
+// Route::get('/one_week_menu', function () {
+//     return view('one_week_menu');
+// })->name('one_week_menu');
 
 Route::get('/shopping_list', function () {
     return view('shopping_list');
@@ -37,3 +37,6 @@ Route::resource('menu-days', MenuDayController::class);
 Route::resource('menu-items', MenuItemController::class);
 // 献立生成画面でキーワードでレシピ候補を表示する
 Route::get('/search-recipes', [RecipeController::class, 'search'])->name('recipes.search');
+
+// 献立生成コントローラ
+Route::post('/menu-items', [MenuItemController::class, 'menusCreate'])->name('menu-items.menusCreate');

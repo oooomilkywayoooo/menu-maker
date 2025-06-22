@@ -66,21 +66,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">月</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_fish.png')}}"
-                                    alt="魚料理">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_fish.png') }}" alt="魚料理">
                             </div>
                         </span>
                         <input type="text" id="mon-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="ブリの照り焼き" readonly>
+                            value="{{ $menu['mon']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['mon']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['mon']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -94,21 +94,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">火</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_fried.png')}}"
-                                    alt="揚げ物">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_fried.png') }}" alt="揚げ物">
                             </div>
                         </span>
                         <input type="text" id="tue-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="エビフライ" readonly>
+                            value="{{ $menu['thu']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['tue']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['tue']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -122,21 +122,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">水</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_bake.png')}}"
-                                    alt="焼き物">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_bake.png') }}" alt="焼き物">
                             </div>
                         </span>
                         <input type="text" id="wed-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="野菜炒め" readonly>
+                            value="{{ $menu['wed']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['wed']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['wed']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -150,21 +150,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">木</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_noodles.png')}}"
-                                    alt="麺料理">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_noodles.png') }}" alt="麺料理">
                             </div>
                         </span>
                         <input type="text" id="thu-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="スパゲティ" readonly>
+                            value="{{ $menu['thu']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['thu']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['thu']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -178,21 +178,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">金</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_don.png')}}"
-                                    alt="丼もの">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_don.png') }}" alt="丼もの">
                             </div>
                         </span>
                         <input type="text" id="fri-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="二食丼" readonly>
+                            value="{{ $menu['fri']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['fri']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['fri']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -206,21 +206,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">土</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_other.png')}}"
-                                    alt="リクエスト">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_other.png') }}" alt="リクエスト">
                             </div>
                         </span>
                         <input type="text" id="sat-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="海鮮丼" readonly>
+                            value="{{ $menu['sat']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['sat']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['sat']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -234,21 +234,21 @@
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#FFC5AC] border rounded-e-0 border-[#FFC5AC] border-e-0 rounded-s-full">
                             <p class="text-xl md:text-2xl pr-2">日</p>
                             <div class="w-[26px] aspect-[1/1]">
-                                <img class="w-full h-full object-cover" src="{{asset('images/junre-icon/genre_other.png')}}"
-                                    alt="リクエスト">
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('images/junre-icon/genre_other.png') }}" alt="リクエスト">
                             </div>
                         </span>
                         <input type="text" id="sun-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            placeholder="ハヤシライス" readonly>
+                            value="{{ $menu['sun']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
-                            <button class="star-btn" type="button">
-                                <i class="fa-regular fa-star fa-lg pr-2"></i>
-                            </button>
-                            <button class="star-btn" type="button">
-                                <i class="fa-solid fa-star fa-lg text-[#FFBF00] pr-2 !hidden"></i>
-                            </button>
+                            {{-- 詳細ボタン --}}
+                            @if (!empty($menu['sun']['id']))
+                                <a href="{{ route('recipes.show', ['recipe' => $menu['sun']['id']]) }}">
+                                    <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
+                                </a>
+                            @endif
                             <button id="reload" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
@@ -314,4 +314,5 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
+
 </html>
