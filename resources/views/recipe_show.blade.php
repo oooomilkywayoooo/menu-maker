@@ -39,6 +39,14 @@
                     <div class="flex items-center">
                         <i class="fa-solid fa-utensils text-2xl"></i>
                         <h1 class="p-2.5 font-bold text-3xl">{{ $recipe->name }}</h1>
+                        {{-- お気に入りボタン --}}
+                        <button class="star-btn" type="button" data-recipe-id="{{ $recipe->id }}">
+                            @if ($recipe->favorite_flg)
+                                <i class="fa-solid fa-star fa-xl text-[#FFBF00] pr-2"></i>
+                            @else
+                                <i class="fa-regular fa-star fa-xl pr-2"></i>
+                            @endif
+                        </button>
                     </div>
                     <span class="flex ml-3">
                         {{-- ジャンルごとのジャンル画像 --}}
@@ -75,7 +83,7 @@
                     </a>
                 </div>
             </div>
-            <!-- 確定ボタン スマホ用 -->
+            <!-- 編集ボタン スマホ用 -->
             <div class="md:hidden grid grid-cols-12 gap-4">
                 <div class="col-span-8 col-start-3 flex justify-center">
                     <a href="{{ route('recipes.edit', $recipe->id) }}"
@@ -86,6 +94,35 @@
             </div>
         </main>
     </div>
+    <script>
+        // お気に入り切り替え
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.star-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const recipeId = this.dataset.recipeId;
+
+                    fetch(`/recipes/${recipeId}/toggle-favorite`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            const icon = this.querySelector('i');
+                            if (data.favorite) {
+                                icon.classList.remove('fa-regular');
+                                icon.classList.add('fa-solid', 'text-[#FFBF00]');
+                            } else {
+                                icon.classList.remove('fa-solid', 'text-[#FFBF00]');
+                                icon.classList.add('fa-regular');
+                            }
+                        });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
