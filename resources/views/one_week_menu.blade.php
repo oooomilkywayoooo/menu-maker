@@ -7,7 +7,8 @@
     <script src="https://kit.fontawesome.com/557c66cb53.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>1週間献立画面</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/each-recipe.js'])
+
 </head>
 
 <body class="min-h-screen bg-[#fdfbf7] font-Kiwi">
@@ -81,7 +82,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-mon" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>
@@ -100,7 +102,7 @@
                         </span>
                         <input type="text" id="tue-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
-                            value="{{ $menu['thu']['name'] ?? '' }}" readonly>
+                            value="{{ $menu['tue']['name'] ?? '' }}" readonly>
                         <span
                             class="inline-flex items-center px-3 text-lg text-gray-900 bg-[#E7F2F7] md:bg-white border rounded-e-full border-[#E7F2F7] md:border-gray-300 border-s-0 rounded-s-0">
                             {{-- 詳細ボタン --}}
@@ -109,7 +111,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-tue" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>
@@ -137,7 +140,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-wed" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>
@@ -165,7 +169,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-thu" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>
@@ -193,7 +198,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-fri" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>
@@ -221,7 +227,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-sat" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>
@@ -249,7 +256,8 @@
                                     <i class="fa-solid fa-circle-info fa-lg mr-2"></i>
                                 </a>
                             @endif
-                            <button id="reload" type="button">
+                            {{-- リロードボタン --}}
+                            <button id="reload-sun" type="button">
                                 <i class="fa-solid fa-arrows-rotate fa-lg"></i>
                             </button>
                         </span>

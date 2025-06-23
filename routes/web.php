@@ -40,3 +40,5 @@ Route::get('/search-recipes', [RecipeController::class, 'search'])->name('recipe
 
 // 献立生成コントローラ
 Route::post('/menu-items', [MenuItemController::class, 'menusCreate'])->name('menu-items.menusCreate');
+// 個別生成コントローラ
+Route::get('/each-create', [MenuItemController::class, 'eachCreate'])->name('menu-items.eachCreate');

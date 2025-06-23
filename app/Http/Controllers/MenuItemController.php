@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Genre;
+use Ramsey\Uuid\Type\Integer;
 
 class MenuItemController extends Controller
 {
@@ -75,6 +77,45 @@ class MenuItemController extends Controller
         ]);
 
         return view('one_week_menu', ['menu' => $menu]);
+    }
+    /**
+     * 個別生成機能
+     */
+    public function eachCreate(Request $request)
+    {
+        $day = $request->query('day');
+        $genreId = $request->query('genre_id');
+
+        if (!$day || !$genreId) {
+            return response()->json(['error' => '必要な情報がありません'], 400);
+        }
+
+        $recipe = Recipe::where('genre_id', $genreId)->inRandomOrder()->first();
+
+        // 現在のセッションデータを取得（なければ初期化）
+        $weeklyMenu = session('weeklyMenu', [
+            'mon' => ['name' => '', 'id' => null],
+            'tue' => ['name' => '', 'id' => null],
+            'wed' => ['name' => '', 'id' => null],
+            'thu' => ['name' => '', 'id' => null],
+            'fri' => ['name' => '', 'id' => null],
+            'sat' => ['name' => '', 'id' => null],
+            'sun' => ['name' => '', 'id' => null],
+        ]);
+
+        // 該当曜日の内容を更新
+        $weeklyMenu[$day] = [
+            'name' => $recipe?->name ?? 'レシピ未登録',
+            'id' => $recipe?->id,
+        ];
+
+        // セッションを更新
+        session(['weeklyMenu' => $weeklyMenu]);
+
+        return response()->json([
+            'name' => $weeklyMenu[$day]['name'],
+            'id' => $weeklyMenu[$day]['id'],
+        ]);
     }
 
     /**
