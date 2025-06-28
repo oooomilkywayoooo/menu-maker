@@ -42,7 +42,7 @@
             <form action="{{ route('menu-items.menusCreate') }}" method="POST">
                 @csrf
                 @foreach ($days as $dayKey => $dayData)
-                    <div class="grid grid-cols-12 gap-4 mt-5 md:mt-10 flex items-center">
+                    <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
                         <!-- 曜日 -->
                         <div class="col-start-2 col-span-1 md:col-start-1">
                             <p class="text-xl md:text-3xl">{{ $dayData['label'] }}</p>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <!-- 生成ボタン スマホ用 -->
-                <div class="md:hidden grid grid-cols-12 gap-4">
+                <div class="md:hidden grid grid-cols-12 gap-4 mt-3">
                     <div class="col-span-8 col-start-3 flex justify-center">
                         <button type="submit"
                             class="text-white bg-[#F9C7C0] focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-2xl px-10 py-4 my-4">
