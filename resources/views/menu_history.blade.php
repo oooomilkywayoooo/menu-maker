@@ -27,38 +27,16 @@
             </div>
 
             <!-- 献立履歴一覧 -->
+            @foreach ($groups as $group)
             <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
                 <div class="flex col-start-2 col-span-10 md:col-span-5 md:col-start-3">
-                    <a href="{{ route('show_menu_history') }}"
+                    <a href="{{ route('menu-items.menuHistoryShow', ['date' => $group->created_date]) }}"
                         class="text-center rounded-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5">
-                        2024年4月15日〜4月21日
+                        {{ \Carbon\Carbon::parse($group->start_date)->format('Y年n月j日') }}〜{{ \Carbon\Carbon::parse($group->end_date)->format('n月j日') }}
                     </a>
                 </div>
             </div>
-            <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
-                <div class="flex col-start-2 col-span-10 md:col-span-5 md:col-start-3">
-                    <a href="{{ route('show_menu_history') }}"
-                        class="text-center rounded-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5">
-                        2024年4月8日〜4月14日
-                    </a>
-                </div>
-            </div>
-            <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
-                <div class="flex col-start-2 col-span-10 md:col-span-5 md:col-start-3">
-                    <a href="{{ route('show_menu_history') }}"
-                        class="text-center rounded-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5">
-                        2024年4月1日〜4月7日
-                    </a>
-                </div>
-            </div>
-            <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
-                <div class="flex col-start-2 col-span-10 md:col-span-5 md:col-start-3">
-                    <a href="{{ route('show_menu_history') }}"
-                        class="text-center rounded-full bg-[#E7F2F7] md:bg-white border text-gray-900 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5">
-                        2024年3月25日〜3月31日
-                    </a>
-                </div>
-            </div>
+            @endforeach
         </main>
 </body>
 

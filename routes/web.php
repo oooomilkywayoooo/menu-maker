@@ -5,21 +5,13 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\MenuDayController;
 use App\Http\Controllers\MenuItemController;
 
-// Route::get('/one_week_menu', function () {
-//     return view('one_week_menu');
-// })->name('one_week_menu');
-
 Route::get('/shopping_list', function () {
     return view('shopping_list');
 })->name('shopping_list');
 
-// Route::get('/show', function () {
-//     return view('recipe_show');
-// })->name('recipe_show');
-
-Route::get('/menu_history', function () {
-    return view('menu_history');
-})->name('menu_history');
+// Route::get('/menu_history', function () {
+//     return view('menu_history');
+// })->name('menu_history');
 
 Route::get('/show_menu_history', function () {
     return view('show_menu_history');
@@ -34,16 +26,17 @@ Route::post('/recipes/{recipe}/toggle-favorite', [RecipeController::class, 'togg
 // 献立日コントローラ
 Route::resource('menu-days', MenuDayController::class);
 // 献立コントローラ
-Route::resource('menu-items', MenuItemController::class);
+// Route::resource('menu-items', MenuItemController::class);
 // 献立生成画面でキーワードでレシピ候補を表示する
 Route::get('/search-recipes', [RecipeController::class, 'search'])->name('recipes.search');
 
 // 献立生成コントローラ
 Route::post('/menu-items', [MenuItemController::class, 'menusCreate'])->name('menu-items.menusCreate');
+Route::get('/menu-items', [MenuItemController::class, 'index'])->name('menu-items.index');
 // 個別生成コントローラ
 Route::get('/each-create', [MenuItemController::class, 'eachCreate'])->name('menu-items.eachCreate');
 // 1週間の献立登録コントローラ
 Route::post('/menu-items/save', [MenuItemController::class, 'saveMenus'])->name('menu-items.saveMenus');
 // 履歴コントローラ
-Route::post('/menu-items/history', [MenuItemController::class, 'menuHistory'])->name('menu-items.menuHistory');
-Route::post('/menu-items/history-show', [MenuItemController::class, 'menuHistoryShow'])->name('menu-items.menuHistoryShow');
+Route::get('/menu-items/history', [MenuItemController::class, 'menuHistory'])->name('menu-items.menuHistory');
+Route::get('/menu-items/history-show/{date}', [MenuItemController::class, 'menuHistoryShow'])->name('menu-items.menuHistoryShow');

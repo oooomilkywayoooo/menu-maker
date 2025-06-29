@@ -8,6 +8,7 @@ use App\Models\Genre;
 use App\Models\MenuDay;
 use App\Models\MenuItem;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MenuItemController extends Controller
 {
@@ -150,6 +151,16 @@ class MenuItemController extends Controller
             array_slice($weekKeys, 0, $startWeekdayIndex)
         );
 
+        // 7日分すべて揃っているかチェック
+        foreach ($orderedWeekKeys as $dayKey) {
+            if (!isset($weeklyMenu[$dayKey]['id']) || empty($weeklyMenu[$dayKey]['id'])) {
+                return redirect()->back()
+                    ->withInput() // 入力内容を保持
+                    ->withErrors("献立の「{$dayKey}」のレシピが登録されていません。すべての日の献立を揃えてから再度登録してください。");
+                // セッションは消さず再入力可能な状態にする
+            }
+        }
+
         // 実際の保存処理
         $currentDate = $startDate->copy();
 
@@ -183,16 +194,66 @@ class MenuItemController extends Controller
      */
     public function menuHistory()
     {
-        //
+        $groups = DB::table('menu_items')
+            ->select(
+                DB::raw('DATE(menu_items.created_at) as created_date'),
+                DB::raw('MIN(DATE(menu_days.date)) as start_date'),
+                DB::raw('MAX(DATE(menu_days.date)) as end_date')
+            )
+            ->join('menu_days', 'menu_items.menu_day_id', '=', 'menu_days.id')
+            ->groupBy('created_date')
+            ->orderByDesc('created_date')
+            ->get();
+
+        return view('menu_history', compact('groups'));
     }
 
     /**
      * 週間履歴の詳細を表示
      */
-    public function menuHistoryShow(string $id)
+    public function menuHistoryShow($date)
     {
-        //
-    }
+        // $date で絞り込み
+        $items = DB::table('menu_items')
+            ->join('menu_days', 'menu_items.menu_day_id', '=', 'menu_days.id')
+            ->join('recipes', 'menu_items.recipe_id', '=', 'recipes.id')
+            ->select(
+                'menu_days.date',
+                'menu_items.day_of_week',
+                'recipes.name as recipe_name',
+                'recipes.id as recipe_id',
+                'recipes.genre_id'
+            )
+            ->whereDate('menu_items.created_at', $date)
+            ->orderBy('menu_days.date')
+            ->get();
 
-    
+        // 1週間の開始日と終了日を計算（menu_days.dateの最小・最大）
+        $startDate = $items->min('date');
+        $endDate = $items->max('date');
+
+        // 曜日ごとに配列に整理
+        $menuByDay = [];
+        foreach ($items as $item) {
+            $menuByDay[$item->day_of_week] = [
+                'recipe_name' => $item->recipe_name,
+                'recipe_id' => $item->recipe_id,
+                'genre_id' => $item->genre_id,
+            ];
+        }
+
+        // すべての曜日キー（sun〜sat）が揃っていなければ空データで補完
+        $allDays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+        foreach ($allDays as $day) {
+            if (!isset($menuByDay[$day])) {
+                $menuByDay[$day] = [
+                    'recipe_name' => null,
+                    'recipe_id' => null,
+                    'genre_id' => null,
+                ];
+            }
+        }
+
+        return view('show_menu_history', compact('menuByDay', 'startDate', 'endDate'));
+    }
 }

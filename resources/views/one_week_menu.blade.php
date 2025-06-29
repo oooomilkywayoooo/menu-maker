@@ -28,6 +28,17 @@
                 </div>
             </div>
 
+            {{-- アラートメッセージ --}}
+            @if ($errors->any())
+                <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7">
+                    <div class="col-span-12 md:col-span-3">
+                        <div class="p-4 mb-4 text-sm text-red-600 rounded-lg bg-[#f7c0c0]" role="alert">
+                            {{ $error }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- 献立一覧 -->
             <form action="{{ route('menu-items.saveMenus') }}" method="POST">
                 @csrf

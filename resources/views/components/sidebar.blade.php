@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="m-3">
-            <a href="{{ route('menu_history') }}"
+            <a href="{{ route('menu-items.menuHistory') }}"
                 class="w-20 h-20  bg-[#E7DBDA] text-white font-semibold rounded-full hover:bg-[#e8c7c5] flex items-center justify-center">
                 <img class="w-14 h-14" src="{{ asset('images/sidebar-icon/sidebar_history.png') }}" alt="献立履歴ボタン">
             </a>
