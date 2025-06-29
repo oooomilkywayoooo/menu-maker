@@ -11,4 +11,6 @@ class MenuDay extends Model
     {
         return $this->hasMany(MenuItem::class);
     }
+
+    protected $fillable = ['date'];
 }

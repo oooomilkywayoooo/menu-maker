@@ -16,4 +16,6 @@ class MenuItem extends Model
     {
         return $this->belongsTo(MenuDay::class);
     }
+
+    protected $fillable = ['menu_day_id', 'recipe_id', 'day_of_week'];
 }

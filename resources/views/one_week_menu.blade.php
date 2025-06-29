@@ -27,39 +27,40 @@
                     <h1 class="mt-[86px] md:mt-6 text-3xl md:text-5xl font-black">1週間の献立</h1>
                 </div>
             </div>
-            <!-- カレンダー -->
-            <div class="mt-5 md:mt-7">
-                <div class="flex items-center justify-center md:justify-start">
-                    <div class="relative w-36">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                            </svg>
-                        </div>
-                        <input id="datepicker-start" name="start" type="text"
-                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full ps-10 p-2.5 placeholder-gray-300"
-                            placeholder="開始日">
-                    </div>
-                    <span class="mx-4 text-gray-500">〜</span>
-                    <div class="relative w-36">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                            </svg>
-                        </div>
-                        <input id="datepicker-end" name="end" type="text"
-                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full ps-10 p-2.5 placeholder-gray-300"
-                            placeholder="1週間後" readonly>
-                    </div>
-                </div>
-            </div>
 
             <!-- 献立一覧 -->
-            <form action="">
+            <form action="{{ route('menu-items.saveMenus') }}" method="POST">
+                @csrf
+                <!-- カレンダー -->
+                <div class="mt-5 md:mt-7">
+                    <div class="flex items-center justify-center md:justify-start">
+                        <div class="relative w-36">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                            </div>
+                            <input id="datepicker-start" name="start" type="text"
+                                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full ps-10 p-2.5 placeholder-gray-300"
+                                placeholder="開始日">
+                        </div>
+                        <span class="mx-4 text-gray-500">〜</span>
+                        <div class="relative w-36">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                </svg>
+                            </div>
+                            <input id="datepicker-end" name="end" type="text"
+                                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#FDC3AA] focus:border-[#FDC3AA] block w-full ps-10 p-2.5 placeholder-gray-300"
+                                placeholder="1週間後" readonly>
+                        </div>
+                    </div>
+                </div>
                 <!-- 月曜日 -->
                 <div class="grid grid-cols-12 gap-4 mt-5 md:mt-7 flex items-center">
                     <div class="flex col-start-2 col-span-10 md:col-span-9 md:col-start-1">
@@ -71,7 +72,7 @@
                                     src="{{ asset('images/junre-icon/genre_fish.png') }}" alt="魚料理">
                             </div>
                         </span>
-                        <input type="text" id="mon-menu"
+                        <input type="text" name="mon-menu" id="mon-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['mon']['name'] ?? '' }}" readonly>
                         <span
@@ -100,7 +101,7 @@
                                     src="{{ asset('images/junre-icon/genre_fried.png') }}" alt="揚げ物">
                             </div>
                         </span>
-                        <input type="text" id="tue-menu"
+                        <input type="text" name="tue-menu" id="tue-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['tue']['name'] ?? '' }}" readonly>
                         <span
@@ -129,7 +130,7 @@
                                     src="{{ asset('images/junre-icon/genre_bake.png') }}" alt="焼き物">
                             </div>
                         </span>
-                        <input type="text" id="wed-menu"
+                        <input type="text" name="wed-menu" id="wed-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['wed']['name'] ?? '' }}" readonly>
                         <span
@@ -158,7 +159,7 @@
                                     src="{{ asset('images/junre-icon/genre_noodles.png') }}" alt="麺料理">
                             </div>
                         </span>
-                        <input type="text" id="thu-menu"
+                        <input type="text" name="thu-menu" id="thu-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['thu']['name'] ?? '' }}" readonly>
                         <span
@@ -187,7 +188,7 @@
                                     src="{{ asset('images/junre-icon/genre_don.png') }}" alt="丼もの">
                             </div>
                         </span>
-                        <input type="text" id="fri-menu"
+                        <input type="text" name="fri-menu" id="fri-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['fri']['name'] ?? '' }}" readonly>
                         <span
@@ -216,7 +217,7 @@
                                     src="{{ asset('images/junre-icon/genre_other.png') }}" alt="リクエスト">
                             </div>
                         </span>
-                        <input type="text" id="sat-menu"
+                        <input type="text" name="sat-menu" id="sat-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['sat']['name'] ?? '' }}" readonly>
                         <span
@@ -245,7 +246,7 @@
                                     src="{{ asset('images/junre-icon/genre_other.png') }}" alt="リクエスト">
                             </div>
                         </span>
-                        <input type="text" id="sun-menu"
+                        <input type="text" name="sun-menu" id="sun-menu"
                             class="pointer-events-none rounded-none border-e-0 bg-[#E7F2F7] md:bg-white border text-gray-900 focus:ring-gray-300 focus:border-gray-300 block flex-1 min-w-0 w-full text-lg border-[#E7F2F7] md:border-gray-300 p-2.5"
                             value="{{ $menu['sun']['name'] ?? '' }}" readonly>
                         <span

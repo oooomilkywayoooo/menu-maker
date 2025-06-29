@@ -42,3 +42,8 @@ Route::get('/search-recipes', [RecipeController::class, 'search'])->name('recipe
 Route::post('/menu-items', [MenuItemController::class, 'menusCreate'])->name('menu-items.menusCreate');
 // 個別生成コントローラ
 Route::get('/each-create', [MenuItemController::class, 'eachCreate'])->name('menu-items.eachCreate');
+// 1週間の献立登録コントローラ
+Route::post('/menu-items/save', [MenuItemController::class, 'saveMenus'])->name('menu-items.saveMenus');
+// 履歴コントローラ
+Route::post('/menu-items/history', [MenuItemController::class, 'menuHistory'])->name('menu-items.menuHistory');
+Route::post('/menu-items/history-show', [MenuItemController::class, 'menuHistoryShow'])->name('menu-items.menuHistoryShow');

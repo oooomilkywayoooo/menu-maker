@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Genre;
-use Ramsey\Uuid\Type\Integer;
+use App\Models\MenuDay;
+use App\Models\MenuItem;
+use Illuminate\Support\Carbon;
 
 class MenuItemController extends Controller
 {
@@ -119,50 +121,78 @@ class MenuItemController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 1週間献立登録機能
      */
-    public function create()
+    public function saveMenus(Request $request)
+    {
+        // バリデーション
+        $validated = $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after_or_equal:start',
+        ]);
+
+        $weeklyMenu = session('weeklyMenu');
+
+        if (!$weeklyMenu || !is_array($weeklyMenu)) {
+            return redirect()->back()->with('error', 'セッションに献立データがありません。');
+        }
+
+        // 曜日のキー一覧
+        $weekKeys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+        // 開始日の曜日
+        $startDate = Carbon::parse($validated['start']);
+        $startWeekdayIndex = $startDate->dayOfWeek;
+
+        // weeklyMenu を start の曜日から並べ替え
+        $orderedWeekKeys = array_merge(
+            array_slice($weekKeys, $startWeekdayIndex),
+            array_slice($weekKeys, 0, $startWeekdayIndex)
+        );
+
+        // 実際の保存処理
+        $currentDate = $startDate->copy();
+
+        foreach ($orderedWeekKeys as $dayKey) {
+            $menuItem = $weeklyMenu[$dayKey] ?? null;
+
+            // menu_days に登録
+            $menuDay = MenuDay::create([
+                'date' => $currentDate->toDateString(),
+            ]);
+
+            // menu_items に登録
+            if ($menuItem && !empty($menuItem['id'])) {
+                MenuItem::create([
+                    'menu_day_id' => $menuDay->id,
+                    'recipe_id' => $menuItem['id'],
+                    'day_of_week' => $dayKey,
+                ]);
+            }
+
+            $currentDate->addDay();
+        }
+
+        session()->forget('weeklyMenu');
+
+        return redirect()->route('home')->with('success', '1週間分の献立を保存しました！');
+    }
+
+    /**
+     * 週間履歴の一覧表示
+     */
+    public function menuHistory()
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 週間履歴の詳細を表示
      */
-    public function store(Request $request)
+    public function menuHistoryShow(string $id)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
 }
