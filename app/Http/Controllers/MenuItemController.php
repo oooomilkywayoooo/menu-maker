@@ -51,7 +51,20 @@ class MenuItemController extends Controller
                     ];
                 }
             } else {
-                $randomRecipe = Recipe::where('genre_id', $genres[$day])->inRandomOrder()->first();
+                // 今日から3週間前の日付
+                $threeWeeksAgo = Carbon::now()->subWeeks(3)->toDateString();
+
+                // 3週間以内に使われた recipe_id を取得
+                $recentRecipeIds = MenuItem::whereHas('menuDay', function ($query) use ($threeWeeksAgo) {
+                    $query->where('date', '>=', $threeWeeksAgo);
+                })->pluck('recipe_id')->unique()->toArray();
+
+                // そのレシピIDを除いて、該当ジャンルのレシピからランダム取得
+                $randomRecipe = Recipe::where('genre_id', $genres[$day])
+                    ->whereNotIn('id', $recentRecipeIds)
+                    ->inRandomOrder()
+                    ->first();
+
                 $menu[$day] = $randomRecipe
                     ? ['id' => $randomRecipe->id, 'name' => $randomRecipe->name]
                     : ['id' => null, 'name' => 'レシピ未登録'];
@@ -93,7 +106,21 @@ class MenuItemController extends Controller
             return response()->json(['error' => '必要な情報がありません'], 400);
         }
 
-        $recipe = Recipe::where('genre_id', $genreId)->inRandomOrder()->first();
+        // お気に入り優先シャッフル
+        $recipes = Recipe::where('genre_id', $genreId)->get();
+        $weighted = collect();
+
+        foreach ($recipes as $recipe) {
+            // すべて1回 push（全レシピ含む）
+            $weighted->push($recipe);
+
+            // favorite が true のものはもう1回 push（=確率2倍）
+            if ($recipe->favorite) {
+                $weighted->push($recipe);
+            }
+        }
+
+        $recipe = $weighted->shuffle()->first();
 
         // 現在のセッションデータを取得（なければ初期化）
         $weeklyMenu = session('weeklyMenu', [
