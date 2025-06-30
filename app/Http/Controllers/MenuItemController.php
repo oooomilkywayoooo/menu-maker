@@ -184,6 +184,49 @@ class MenuItemController extends Controller
             $currentDate->addDay();
         }
 
+        // レシピの材料雨を全てセッションに追加
+        // 全レシピIDを取得（重複を排除）
+        $recipeIds = collect($weeklyMenu)
+            ->pluck('id')
+            ->unique()
+            ->filter() // null対策
+            ->values()
+            ->all();
+
+        // 材料の配列を初期化
+        $allMaterials = [];
+
+        if (!empty($recipeIds)) {
+            $recipes = Recipe::whereIn('id', $recipeIds)->get();
+
+            foreach ($recipes as $recipe) {
+                $materials = json_decode($recipe->materials, true);
+
+                if (is_array($materials)) {
+                    foreach ($materials as $material) {
+                        $allMaterials[] = [
+                            'recipe_id' => $recipe->id,
+                            'text' => $material,
+                        ];
+                    }
+                }
+            }
+        }
+
+        // 材料の「text」だけで重複を除去
+        $uniqueMaterials = [];
+        $addedTexts = [];
+
+        foreach ($allMaterials as $material) {
+            if (!in_array($material['text'], $addedTexts)) {
+                $uniqueMaterials[] = $material;
+                $addedTexts[] = $material['text'];
+            }
+        }
+
+        // セッションに格納
+        session(['allMaterials' => $uniqueMaterials]);
+
         session()->forget('weeklyMenu');
 
         return redirect()->route('home')->with('success', '1週間分の献立を保存しました！');
@@ -255,5 +298,24 @@ class MenuItemController extends Controller
         }
 
         return view('show_menu_history', compact('menuByDay', 'startDate', 'endDate'));
+    }
+    /**
+     * 買い物メモを表示
+     */
+    public function buyMaterials()
+    {
+        // 1週間の献立の材料があれば格納
+        $buyMaterials = session('allMaterials', []);
+
+        return view('shopping_list', ['buyMaterials' => $buyMaterials]);
+    }
+    /**
+     * 買い物リストのセッションを削除
+     */
+    public function clearMaterials(Request $request)
+    {
+        session()->forget('allMaterials');
+
+        return response()->json(['message' => 'セッション削除完了']);
     }
 }

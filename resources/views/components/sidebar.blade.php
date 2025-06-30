@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="m-3">
-            <a href="{{ route('shopping_list') }}"
+            <a href="{{ route('menu-items.buyMaterials') }}"
                 class="w-20 h-20  bg-[#E7DBDA] text-white font-semibold rounded-full hover:bg-[#e8c7c5] flex items-center justify-center">
                 <img class="w-14 h-14" src="{{ asset('images/sidebar-icon/sidebar_list.png') }}" alt="買い物リストボタン">
             </a>

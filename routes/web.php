@@ -5,17 +5,17 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\MenuDayController;
 use App\Http\Controllers\MenuItemController;
 
-Route::get('/shopping_list', function () {
-    return view('shopping_list');
-})->name('shopping_list');
+// Route::get('/shopping_list', function () {
+//     return view('shopping_list');
+// })->name('shopping_list');
 
 // Route::get('/menu_history', function () {
 //     return view('menu_history');
 // })->name('menu_history');
 
-Route::get('/show_menu_history', function () {
-    return view('show_menu_history');
-})->name('show_menu_history');
+// Route::get('/show_menu_history', function () {
+//     return view('show_menu_history');
+// })->name('show_menu_history');
 
 // レシピコントローラ
 Route::resource('recipes', RecipeController::class);
@@ -40,3 +40,7 @@ Route::post('/menu-items/save', [MenuItemController::class, 'saveMenus'])->name(
 // 履歴コントローラ
 Route::get('/menu-items/history', [MenuItemController::class, 'menuHistory'])->name('menu-items.menuHistory');
 Route::get('/menu-items/history-show/{date}', [MenuItemController::class, 'menuHistoryShow'])->name('menu-items.menuHistoryShow');
+// 買い物リスト
+Route::get('/shopping-list', [MenuItemController::class, 'buyMaterials'])->name('menu-items.buyMaterials');
+// 買い物リストのセッション削除
+Route::post('/clear-materials', [MenuItemController::class, 'clearMaterials'])->name('materials.clear');

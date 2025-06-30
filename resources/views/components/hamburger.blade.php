@@ -10,7 +10,7 @@
             <li class="p-2"><a href="{{ route('home') }}">ホーム</a></li>
             <li class="p-2"><a href="{{ route('recipes.create') }}">料理登録</a></li>
             <li class="p-2"><a href="{{ route('menu-items.index') }}">献立</a></li>
-            <li class="p-2"><a href="{{ route('shopping_list') }}">買い物リスト</a></li>
+            <li class="p-2"><a href="{{ route('menu-items.buyMaterials') }}">買い物リスト</a></li>
             <li class="p-2"><a href="{{ route('favorite') }}">お気に入り</a></li>
             <li class="p-2"><a href="{{ route('menu-items.menuHistory') }}">献立履歴</a></li>
         </ul>
