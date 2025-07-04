@@ -42,5 +42,7 @@ Route::get('/menu-items/history', [MenuItemController::class, 'menuHistory'])->n
 Route::get('/menu-items/history-show/{date}', [MenuItemController::class, 'menuHistoryShow'])->name('menu-items.menuHistoryShow');
 // 買い物リスト
 Route::get('/shopping-list', [MenuItemController::class, 'buyMaterials'])->name('menu-items.buyMaterials');
+// 買い物リストの手動追加
+Route::post('/materials/add', [MenuItemController::class, 'addMaterial'])->name('materials.add');
 // 買い物リストのセッション削除
 Route::post('/clear-materials', [MenuItemController::class, 'clearMaterials'])->name('materials.clear');

@@ -211,7 +211,7 @@ class MenuItemController extends Controller
             $currentDate->addDay();
         }
 
-        // レシピの材料雨を全てセッションに追加
+        // レシピの材料を全てセッションに追加
         // 全レシピIDを取得（重複を排除）
         $recipeIds = collect($weeklyMenu)
             ->pluck('id')
@@ -336,6 +336,37 @@ class MenuItemController extends Controller
 
         return view('shopping_list', ['buyMaterials' => $buyMaterials]);
     }
+
+    /**
+     * 買い物リストの手動追加
+     */
+    public function addMaterial(Request $request)
+    {
+        $text = $request->input('text');
+
+        if (!$text || trim($text) === '') {
+            return response()->json(['error' => '無効な入力です'], 400);
+        }
+
+        $allMaterials = session('allMaterials', []);
+
+        // すでに同じ材料があるかチェック
+        foreach ($allMaterials as $material) {
+            if ($material['text'] === $text) {
+                return response()->json(['message' => '既に追加済みです']);
+            }
+        }
+
+        $allMaterials[] = [
+            'recipe_id' => null,
+            'text' => $text,
+        ];
+
+        session(['allMaterials' => $allMaterials]);
+
+        return response()->json(['message' => 'セッションに追加しました']);
+    }
+
     /**
      * 買い物リストのセッションを削除
      */

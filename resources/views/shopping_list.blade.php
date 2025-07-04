@@ -93,7 +93,8 @@
         <!-- モーダルボックス -->
         <div class="bg-white p-6 rounded-lg w-11/12 max-w-md shadow-lg">
             <h2 class="text-xl font-bold mb-4">買い物リストに追加</h2>
-            <input id="modalInput" type="text" class="w-full p-2 border border-gray-300 rounded-md mb-4 text-lg placeholder-gray-400"
+            <input id="modalInput" type="text"
+                class="w-full p-2 border border-gray-300 rounded-md mb-4 text-lg placeholder-gray-400"
                 placeholder="例：牛乳" />
             <div class="flex justify-end gap-2">
                 <button id="cancelModalBtn"
@@ -204,6 +205,22 @@
                 // 新しいチェックボックスにリスナーを付ける
                 const newCheckbox = newItem.querySelector('input[type="checkbox"]');
                 addCheckboxListener(newCheckbox);
+
+                // セッションに保存（AJAX）
+                fetch("{{ route('materials.add') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            text: value
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                    });
 
                 modal.classList.add('hidden');
             }
