@@ -234,6 +234,7 @@ class MenuItemController extends Controller
                         $allMaterials[] = [
                             'recipe_id' => $recipe->id,
                             'text' => $material,
+                            'check' => false,
                         ];
                     }
                 }
@@ -246,7 +247,10 @@ class MenuItemController extends Controller
 
         foreach ($allMaterials as $material) {
             if (!in_array($material['text'], $addedTexts)) {
-                $uniqueMaterials[] = $material;
+                $uniqueMaterials[] = [
+                    'text' => $material['text'],
+                    'check' => false,
+                ];
                 $addedTexts[] = $material['text'];
             }
         }
@@ -338,6 +342,28 @@ class MenuItemController extends Controller
     }
 
     /**
+     * 買い物リストのチェック更新
+     */
+    public function updateCheck(Request $request)
+    {
+        $text = $request->input('text');
+        $check = $request->input('check');
+
+        $materials = session('allMaterials', []);
+
+        foreach ($materials as &$material) {
+            if ($material['text'] === $text) {
+                $material['check'] = $check;
+                break;
+            }
+        }
+
+        session(['allMaterials' => $materials]);
+
+        return response()->json(['message' => 'チェック状態更新']);
+    }
+
+    /**
      * 買い物リストの手動追加
      */
     public function addMaterial(Request $request)
@@ -360,6 +386,7 @@ class MenuItemController extends Controller
         $allMaterials[] = [
             'recipe_id' => null,
             'text' => $text,
+            'check' => false,
         ];
 
         session(['allMaterials' => $allMaterials]);

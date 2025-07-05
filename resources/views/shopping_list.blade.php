@@ -48,20 +48,23 @@
             <!-- チェックリスト -->
             <div id="checklist-wrapper">
                 @foreach ($buyMaterials as $index => $material)
-                    <div class="grid grid-cols-12 gap-4 mt-3">
-                        <div class="col-start-2 col-span-10 md:col-start-1">
-                            <div
-                                class="flex items-center ps-4 border border-gray rounded-lg bg-[#E7F2F7] md:rounded-sm md:bg-white">
-                                <input id="checkbox-{{ $index }}" type="checkbox" value="{{ $material['text'] }}"
-                                    name="buy_materials[]"
-                                    class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
-                                <label for="checkbox-{{ $index }}"
-                                    class="w-full py-2 ms-2 text-2xl text-[#000000]">
-                                    {{ $material['text'] }}
-                                </label>
+                    @if (!$material['check'])
+                        <div class="grid grid-cols-12 gap-4 mt-3">
+                            <div class="col-start-2 col-span-10 md:col-start-1">
+                                <div
+                                    class="flex items-center ps-4 border border-gray rounded-lg bg-[#E7F2F7] md:rounded-sm md:bg-white">
+                                    <input id="checkbox-{{ $index }}" type="checkbox"
+                                        value="{{ $material['text'] }}" name="buy_materials[]"
+                                        {{ $material['check'] ? 'checked' : '' }}
+                                        class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
+                                    <label for="checkbox-{{ $index }}"
+                                        class="w-full py-2 ms-2 text-2xl text-[#000000]">
+                                        {{ $material['text'] }}
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
 
@@ -74,7 +77,24 @@
 
             <!-- チェックリスト -->
             <div id="bought-wrapper">
-                <!-- JSで移動されるエリア -->
+                @foreach ($buyMaterials as $index => $material)
+                    @if ($material['check'])
+                        <div class="grid grid-cols-12 gap-4 mt-3">
+                            <div class="col-start-2 col-span-10 md:col-start-1">
+                                <div
+                                    class="flex items-center ps-4 border border-gray rounded-lg bg-[#E7F2F7] md:rounded-sm md:bg-white">
+                                    <input id="checkbox-{{ $index }}" type="checkbox"
+                                        value="{{ $material['text'] }}" name="buy_materials[]" checked
+                                        class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2">
+                                    <label for="checkbox-{{ $index }}"
+                                        class="w-full py-2 ms-2 text-2xl text-[#000000] line-through">
+                                        {{ $material['text'] }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
 
             <!-- 戻るボタン スマホ用 -->
@@ -122,10 +142,22 @@
                 }
 
                 checkIfAllChecked();
+
+                fetch("{{ route('materials.update') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        text: checkbox.value,
+                        check: checkbox.checked
+                    })
+                });
             });
         }
 
-        // ✅ チェックが全て完了したかどうかを確認
+        // チェックが全て完了したかどうかを確認
         function checkIfAllChecked() {
             const checklist = document.querySelectorAll('#checklist-wrapper input[type="checkbox"]');
             if (checklist.length === 0) {
@@ -154,12 +186,13 @@
         // 最初にチェックが全て済んでるかも確認（初期表示用）
         checkIfAllChecked();
 
-        // 2. 最初にあるチェックボックス全部にイベントをつける
-        document.querySelectorAll('#checklist-wrapper input[type="checkbox"]').forEach(cb => {
-            addCheckboxListener(cb);
-        });
+        // 「買うもの」と「購入済み」両方のチェックボックスにイベントをつける
+        document.querySelectorAll('#checklist-wrapper input[type="checkbox"], #bought-wrapper input[type="checkbox"]')
+            .forEach(cb => {
+                addCheckboxListener(cb);
+            });
 
-        // 3. 追加ボタンでアイテムを追加する処理
+        // 追加ボタンでアイテムを追加する処理
         const modal = document.getElementById('customModal');
         const input = document.getElementById('modalInput');
         const addBtns = document.querySelectorAll('#addItemBtn');
