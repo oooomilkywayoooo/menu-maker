@@ -277,6 +277,7 @@ class MenuItemController extends Controller
             ->join('menu_days', 'menu_items.menu_day_id', '=', 'menu_days.id')
             ->groupBy('created_date')
             ->orderByDesc('created_date')
+            ->limit(5)
             ->get();
 
         return view('menu_history', compact('groups'));
