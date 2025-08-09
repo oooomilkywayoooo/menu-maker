@@ -62,6 +62,15 @@ class RecipeController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'memo' => 'nullable|string',
             'url' => 'nullable|url',
+        ], [
+            'name.required' => '料理名は必須です。',
+            'genre_id.required' => 'ジャンルを選択してください。',
+            'genre_id.exists' => '選択したジャンルは存在しません。',
+            'materials.required' => '材料は必須です。',
+            'image.image' => 'アップロードできるのは画像ファイルのみです。',
+            'image.mimes' => '画像はjpeg, png, jpg, gif形式にしてください。',
+            'image.max' => '画像は2MB以内でアップロードしてください。',
+            'url.url' => 'URLの形式が正しくありません。',
         ]);
 
         // 画像がある場合は保存してパスを取得

@@ -26,6 +26,21 @@
                 </div>
             </div>
 
+            {{-- アラートメッセージ --}}
+            @if ($errors->any())
+                <div class="grid grid-cols-12 gap-4 mt-5">
+                    <div class="col-start-3 md:col-start-2 col-span-12 md:col-span-5">
+                        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-[#f9acac]" role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- 登録フォーム -->
             <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -58,11 +73,12 @@
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                     <i
                                         class="fa-solid fa-circle-plus fa-2x ps-2 text-[#F9C9B4] hover:text-[#f79f79]"></i>
-                                    <p id="filename_display_mobile" class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                    <p id="filename_display_mobile"
+                                        class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                             class="font-semibold">料理画像</p>
                                 </div>
-                                <input id="dropzone-file" type="file" name="image" accept="image/*"
-                                    class="hidden" onchange="document.getElementById('filename_display_mobile').textContent = this.files[0]?.name || ''">
+                                <input id="dropzone-file" type="file" name="image" accept="image/*" class="hidden"
+                                    onchange="document.getElementById('filename_display_mobile').textContent = this.files[0]?.name || ''">
                             </label>
                         </div>
                     </div>
